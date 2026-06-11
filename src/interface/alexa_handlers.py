@@ -5,12 +5,11 @@ from ask_sdk_core.utils import is_request_type, is_intent_name
 from src.application.assistant_service import AssistantService
 
 REPROMPTS = [
-    "Algo mais, senhor?",
+    "Algo mais?",
     "Mais alguma coisa?",
     "Em que mais posso ajudar?",
     "Deseja mais alguma coisa?",
     "Estou aqui. Precisa de algo?",
-    "O que mais, senhor?",
 ]
 
 

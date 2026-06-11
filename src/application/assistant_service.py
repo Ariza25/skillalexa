@@ -138,8 +138,8 @@ class AssistantService:
 
         return random.choice(
             [
-                "Não entendi, senhor. Poderia repetir?",
-                "Hmm, essa não estava nos meus planos. Pode reformular?",
-                "Digamos que meu processador deu uma pausa. O que disse?",
+                "Olá! Como posso ajudar?",
+                "Não entendi. Poderia repetir?",
+                "Hmm, não consegui processar. Pode reformular?",
             ]
         )
