@@ -3,21 +3,21 @@ steps:
     args:
       - build
       - -t
-      - $_ARTIFACT_REGISTRY/$PROJECT_ID/jarvis-skill:$SHORT_SHA
+      - $_ARTIFACT_REGISTRY/$PROJECT_ID/aurora-skill:$SHORT_SHA
       - .
 
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - $_ARTIFACT_REGISTRY/$PROJECT_ID/jarvis-skill:$SHORT_SHA
+      - $_ARTIFACT_REGISTRY/$PROJECT_ID/aurora-skill:$SHORT_SHA
 
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: gcloud
     args:
       - run
       - deploy
-      - jarvis-skill
-      - --image=$_ARTIFACT_REGISTRY/$PROJECT_ID/jarvis-skill:$SHORT_SHA
+      - aurora-skill
+      - --image=$_ARTIFACT_REGISTRY/$PROJECT_ID/aurora-skill:$SHORT_SHA
       - --region=$_REGION
       - --allow-unauthenticated
       - --set-env-vars=GROQ_API_KEY=$_GROQ_API_KEY,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,DATA_BASE=$_DATA_BASE
@@ -28,7 +28,7 @@ substitutions:
   _ARTIFACT_REGISTRY: gcr.io
   _REGION: us-central1
   _GROQ_API_KEY: sua_chave_aqui
-  _DATA_BASE: jarvis_conversations
+  _DATA_BASE: aurora_conversations
 
 options:
   machineType: E2_HIGHCPU_8

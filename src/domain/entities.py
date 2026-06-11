@@ -4,8 +4,15 @@ from typing import Optional
 
 @dataclass
 class Message:
-    role: str  # "user" | "assistant"
+    role: str
     content: str
+
+
+@dataclass
+class Profile:
+    name: Optional[str] = None
+    facts: list[str] = field(default_factory=list)
+    preferences: dict[str, str] = field(default_factory=dict)
 
 
 @dataclass

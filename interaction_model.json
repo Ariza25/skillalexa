@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "jarvis",
+      "invocationName": "meu assistente",
       "intents": [
         {
           "name": "AMAZON.HelpIntent",
@@ -20,6 +20,14 @@
           "samples": []
         },
         {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
           "name": "ChatIntent",
           "slots": [
             {
@@ -28,7 +36,24 @@
             }
           ],
           "samples": [
-            "{query}"
+            "quero {query}",
+            "preciso {query}",
+            "sobre {query}",
+            "conversar {query}",
+            "dizer {query}",
+            "falar {query}",
+            "perguntar {query}",
+            "saber {query}",
+            "conta {query}",
+            "qual {query}",
+            "que {query}",
+            "como {query}",
+            "quando {query}",
+            "onde {query}",
+            "por que {query}",
+            "me diga {query}",
+            "explique {query}",
+            "faça {query}"
           ]
         }
       ]

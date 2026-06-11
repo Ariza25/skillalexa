@@ -7,10 +7,12 @@ from ask_sdk_model import RequestEnvelope
 
 from src.infrastructure.firestore_memory import FirestoreMemory
 from src.infrastructure.groq_llm import GroqLLM
-from src.application.jarvis_service import JarvisService
+from src.application.assistant_service import AssistantService
 from src.interface.alexa_handlers import (
     LaunchRequestHandler,
     ChatIntentHandler,
+    YesIntentHandler,
+    NoIntentHandler,
     HelpIntentHandler,
     GoodbyeIntentHandler,
     SessionEndedRequestHandler,
@@ -23,11 +25,13 @@ try:
 except RuntimeError:
     llm = None
 
-service = JarvisService(memory, llm)
+service = AssistantService(memory, llm)
 
 sb = SkillBuilder()
 sb.add_request_handler(LaunchRequestHandler(service))
 sb.add_request_handler(ChatIntentHandler(service))
+sb.add_request_handler(YesIntentHandler(service))
+sb.add_request_handler(NoIntentHandler(service))
 sb.add_request_handler(HelpIntentHandler(service))
 sb.add_request_handler(GoodbyeIntentHandler(service))
 sb.add_request_handler(SessionEndedRequestHandler())
@@ -36,7 +40,7 @@ sb.add_request_handler(FallbackIntentHandler(service))
 serializer = DefaultSerializer()
 skill = sb.create()
 
-app = FastAPI(title="Jarvis for Alexa")
+app = FastAPI(title="Aurora for Alexa")
 
 
 @app.post("/")
