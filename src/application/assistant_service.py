@@ -67,13 +67,13 @@ class AssistantService:
         try:
             response = self._llm.ask(context, history, user_id)
             if not response:
-                return self._fallback()
+                return "Houve um erro vazio ao processar sua solicitação."
             self._save_exchange(user_id, user_input, response)
             self._try_extract_name(user_id, user_input, response, profile)
             self._extract_facts(user_id, user_input)
             return response
-        except Exception:
-            return self._fallback()
+        except Exception as e:
+            return f"Erro: {type(e).__name__}: {e}"
 
     def _build_context(self, profile: dict) -> str:
         parts = []

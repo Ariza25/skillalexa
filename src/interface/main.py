@@ -1,6 +1,9 @@
 import os
 import json
+from dotenv import load_dotenv
 from fastapi import FastAPI, Request
+
+load_dotenv()
 from ask_sdk_core.skill_builder import SkillBuilder
 from ask_sdk_core.serialize import DefaultSerializer
 from ask_sdk_model import RequestEnvelope
@@ -54,6 +57,30 @@ async def alexa_endpoint(request: Request):
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+@app.get("/debug-groq")
+async def debug_groq():
+    key = os.environ.get("GROQ_API_KEY", "")
+    if not key:
+        return {"error": "GROQ_API_KEY not set", "key_prefix": ""}
+    try:
+        from groq import Groq
+
+        client = Groq(api_key=key)
+        completion = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[{"role": "user", "content": "Say hi"}],
+            max_tokens=10,
+            timeout=10,
+        )
+        return {
+            "ok": True,
+            "key_prefix": key[:8] + "...",
+            "response": completion.choices[0].message.content.strip(),
+        }
+    except Exception as e:
+        return {"error": str(e), "key_prefix": key[:8] + "..."}
 
 
 if __name__ == "__main__":
